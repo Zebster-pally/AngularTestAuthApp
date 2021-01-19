@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   login() {
     if (this.emailFormControl.value == login && this.passFormControl.value == pass) {
+      localStorage.setItem("user", JSON.stringify({email: this.emailFormControl.value, pass: this.passFormControl.value}));
       this.router.navigate(['home'])
     } else {
       alert("Wrong data!")

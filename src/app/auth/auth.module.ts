@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+// import { LoginGuard }   from './login.guard';
 
 
 const routes: Routes = [
@@ -16,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    // canActivate: [LoginGuard]
   }
 ];
 
@@ -27,7 +29,8 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  declarations: [HomeComponent]
+  declarations: [HomeComponent],
+  // providers: [LoginGuard]
 })
 
 export class AuthModule { }
