@@ -1,0 +1,14 @@
+.posts__wrapper {
+  width: 100%;
+  margin: 0;
+  background: lightblue;
+  display: flex;
+  flex-direction: column;
+}
+
+.post {
+  width: 80%;
+  margin: 60px auto;
+  text-align: center;
+  cursor: pointer;
+}

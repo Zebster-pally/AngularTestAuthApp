@@ -1,60 +1,43 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+export class DefaultStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
 
-const login = "test@test.com"
-const pass = 12345
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+export class LoginComponent {
 
-export class LoginComponent implements OnInit, OnDestroy {
+  hide: Boolean = true;
 
-  constructor(public router: Router) { }
+  emailFormControl = new FormControl('', [Validators.required, Validators.email,]);
+  passFormControl = new FormControl('', [Validators.required]);
 
-  time = new Date();
-  timer: any;
+  matcher = new DefaultStateMatcher();
 
-  hide : Boolean = true;
+  constructor(
+    public router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService) { }
 
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  passFormControl = new FormControl('', [
-    Validators.required
-  ]);
-
-  login() {
-    if (this.emailFormControl.value == login && this.passFormControl.value == pass) {
-      localStorage.setItem("user", JSON.stringify({email: this.emailFormControl.value, pass: this.passFormControl.value}));
-      this.router.navigate(['home'])
+  login(): void {
+    if (this.emailFormControl.valid && this.passFormControl.valid) {
+      this.authService.login(this.emailFormControl.value, this.passFormControl.value);
     } else {
-      alert("Wrong data!")
+      this.emailFormControl.markAsTouched();
+      this.passFormControl.markAsTouched();
+      this.toastr.warning('Incorrect data!', 'Error!');
     }
-  }
-
-  matcher = new MyErrorStateMatcher();
-
-  ngOnInit() {
-    this.timer = setInterval(() => {
-      this.time = new Date();
-    }, 1000);
-  }
-
-  ngOnDestroy(){
-    clearInterval(this.timer);
   }
 }
