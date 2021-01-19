@@ -1,0 +1,37 @@
+<div *ngIf="router.url !== '/login'" class="nav">
+  <p class="welcome"><b>Welcome, {{emailFormControl.value}}!</b></p>
+  <p>{{time | date: 'hh:mm:ss a'}}</p>
+  <button class="logout" mat-raised-button color="warn">Log Out</button>
+</div>
+
+<div class="page-wrapper">
+  <form class="example-form">
+    <div class="login">
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+          placeholder="Ex. pat@example.com">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="password">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your password</mat-label>
+        <input matInput  [formControl]="passFormControl" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+
+    <button class="button-login" mat-raised-button color="primary" (click) = "login()">Log In</button>
+  </form>
+</div>

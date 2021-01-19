@@ -1,0 +1,17 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  margin: 0 auto;
+  height: 50px;
+}
+
+.welcome {
+  margin-left: 20px;
+}
+
+.logout {
+  margin-right: 20px;
+}
