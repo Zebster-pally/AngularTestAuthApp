@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { IPost } from '../models/post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +12,11 @@ export class PostsService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts() {
-    return this.http.get(`${this.url}`)
+  get(startPosition: number, limit: number): Observable<IPost[]> {
+    return this.http.get<IPost[]>(`${this.url}?_start=${startPosition}&_limit=${limit}`)
   }
 
-  selectPost(id: number) {
-    return this.http.get(`${this.url}/${id}`)
+  getById(id: number): Observable<IPost> {
+    return this.http.get<IPost>(`${this.url}/${id}`)
   }
 }

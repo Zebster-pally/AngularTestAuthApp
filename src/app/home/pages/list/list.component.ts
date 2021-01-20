@@ -20,7 +20,17 @@ export class ListComponent implements OnInit {
   constructor(private postsService: PostsService) { }
 
   ngOnInit(): void {
-    this.postsService.getPosts().subscribe((data:IPost[]) => this.posts = data)
+    this.postsService.get(this.startPosition, this.limit).subscribe((data:IPost[]) => {
+      this.posts = [...this.posts, ...data];
+      this.startPosition += this.limit;
+    })
+  }
+
+  loadPosts() {
+    this.postsService.get(this.startPosition, this.limit).subscribe((data:IPost[]) => {
+      this.posts = [...this.posts, ...data];
+      this.startPosition += this.limit;
+    })
   }
 
 }

@@ -1,4 +1,36 @@
 .wrapper {
+  padding: 70px 0;
+}
+
+mat-card-title {
   text-align: center;
-  padding: 50px 0;
+}
+
+mat-card {
+  width: 35%;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+mat-card-header {
+  justify-content: center;
+}
+
+.comments {
+  margin-top: 15px;
+}
+
+h3 {
+  text-align: center;
+}
+
+.backToList {
+  display: block;
+  margin: 15px auto;
 }

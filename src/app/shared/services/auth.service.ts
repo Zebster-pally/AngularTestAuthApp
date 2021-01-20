@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-const emailConst = "test@test.com"
-const passConst = "12345"
+const emailConst = "admin@admin.com"
+const passConst = "admin"
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
